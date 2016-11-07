@@ -15,7 +15,7 @@ class KQMLDispatcher(object):
 
     def start(self):
         try:
-            while True:
+            while True and not self.shutdown_initiated:
                 msg = self.reader.read_performative()
                 self.dispatch_message(msg)
         # FIXME: not handling KQMLException and
