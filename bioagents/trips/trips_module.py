@@ -155,7 +155,6 @@ class TripsModule(object):
         else:
             if self.dispatcher is not None:
                 self.dispatcher.shutdown()
-            sys.exit(n)
 
     def receive_eof(self):
         self.exit(0)
