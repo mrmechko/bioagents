@@ -2,11 +2,11 @@ import io
 import sys
 import socket
 import logging
-import kqml_reader
-from kqml_dispatcher import KQMLDispatcher
-from kqml_token import KQMLToken
-from kqml_list import KQMLList
-from kqml_performative import KQMLPerformative
+import tripsmodule.kqml_reader as kqml_reader
+from tripsmodule.kqml_dispatcher import KQMLDispatcher
+from tripsmodule.kqml_token import KQMLToken
+from tripsmodule.kqml_list import KQMLList
+from tripsmodule.kqml_performative import KQMLPerformative
 
 class TripsModule(object):
     def __init__(self, argv, is_application=False):

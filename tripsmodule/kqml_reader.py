@@ -1,11 +1,11 @@
 import io
 import logging
-from kqml_exceptions import *
+from tripsmodule.kqml_exceptions import *
 
-import kqml_list
-from kqml_token import KQMLToken
-from kqml_performative import KQMLPerformative
-from kqml_string import KQMLString
+import tripsmodule.kqml_list as kqml_list
+from tripsmodule.kqml_token import KQMLToken
+from tripsmodule.kqml_performative import KQMLPerformative
+from tripsmodule.kqml_string import KQMLString
 
 logger = logging.getLogger('KQMLReader')
 

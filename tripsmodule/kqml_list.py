@@ -1,6 +1,6 @@
 from io import StringIO
-from kqml_token import KQMLToken
-import kqml_reader
+from tripsmodule.kqml_token import KQMLToken
+import tripsmodule.kqml_reader as kqml_reader
 
 class KQMLList(object):
     def __init__(self, objects=None):

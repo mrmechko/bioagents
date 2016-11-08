@@ -1,8 +1,8 @@
 from io import StringIO
-import kqml_reader
-import kqml_list
-from kqml_token import KQMLToken
-from kqml_exceptions import KQMLBadPerformativeException
+import tripsmodule.kqml_reader as kqml_reader
+import tripsmodule.kqml_list as kqml_list
+from tripsmodule.kqml_token import KQMLToken
+from tripsmodule.kqml_exceptions import KQMLBadPerformativeException
 
 class KQMLPerformative(object):
     def __init__(self, verb):
