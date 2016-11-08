@@ -1,4 +1,4 @@
-import StringIO
+from io import StringIO
 import kqml_reader
 import kqml_list
 from kqml_token import KQMLToken

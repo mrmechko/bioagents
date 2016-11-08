@@ -1,4 +1,4 @@
-import StringIO
+from io import StringIO
 
 class KQMLString(object):
     def __init__(self, data=None):
