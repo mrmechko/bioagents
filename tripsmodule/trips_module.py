@@ -277,7 +277,7 @@ class TripsModule(object):
         self.error_reply(msg, 'unexpected performative: unregister')
 
     def receive_other_performative(self, msg):
-        self.error_reply(msg, 'unexpected performative: ' + msg)
+        self.error_reply(msg, 'unexpected performative: ' + str(msg))
 
     def handle_exception(self, ex):
         sys.stderr.write(self.name + ': ' + str(ex))
@@ -288,7 +288,7 @@ class TripsModule(object):
         except IOError:
             self.logger.error('IOError during message sending')
             pass
-        self.out.write('\n')
+        self.out.write('\n'.encode())
         self.out.flush()
         self.logger.debug(msg.__repr__())
 

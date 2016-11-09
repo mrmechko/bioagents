@@ -1,6 +1,5 @@
-from io import StringIO
+from io import BytesIO
 from tripsmodule.kqml_token import KQMLToken
-import tripsmodule.kqml_reader as kqml_reader
 
 class KQMLList(object):
     def __init__(self, objects=None):
@@ -11,7 +10,10 @@ class KQMLList(object):
                 self.data.append(o)
 
     def __str__(self):
-        return '(' + ' '.join([d.__str__() for d in self.data]) + ')'
+        res = ('(' + ' '.join([d.__str__() for d in self.data]) + ')')
+        if type(res) is bytes:
+            return res.decode()
+        return res
 
     def __repr__(self):
         return '(' + ' '.join([d.__repr__() for d in self.data]) + ')'
@@ -24,7 +26,7 @@ class KQMLList(object):
 
     #TODO: implement adding by index, KQMLList line 246
     def add(self, obj):
-        if isinstance(obj, basestring):
+        if isinstance(obj, str):
             self.data.append(KQMLToken(obj))
         else:
             self.data.append(obj)
@@ -66,16 +68,20 @@ class KQMLList(object):
 
     def write(self, out):
         full_str = '(' + ' '.join([str(s) for s in self.data]) + ')'
-        out.write(full_str)
+        out.write(full_str.encode())
 
     def to_string(self):
-        out = StringIO.StringIO()
+        out = BytesIO()
         self.write(out)
-        return out.getvalue()
+        res = out.getvalue()
+        if type(res) is bytes:
+            return res.decode()
+        return res
 
     @classmethod
     def from_string(cls, s):
-        sreader = StringIO.StringIO(s)
+        sreader = BytesIO(s)
+        import tripsmodule.kqml_reader as kqml_reader
         kreader = kqml_reader.KQMLReader(sreader)
         return kreader.read_list()
 
@@ -86,7 +92,7 @@ class KQMLList(object):
         self.data.remove(obj)
 
     def index_of(self, obj):
-        if isinstance(obj, basestring):
+        if isinstance(obj, str):
             return self.index_of_string(obj)
         else:
             try:

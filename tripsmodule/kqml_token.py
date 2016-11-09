@@ -1,4 +1,4 @@
-from io import StringIO
+from io import BytesIO
 
 class KQMLToken(object):
     def __init__(self, s=None):
@@ -21,15 +21,18 @@ class KQMLToken(object):
             return (self.data.lower() == s.lower())
 
     def write(self, out):
-        out.write(self.data)
+        out.write(self.data.encode())
 
     def to_string(self):
-        out = StringIO.StringIO()
+        out = BytesIO()
         try:
             self.write(out)
         except Exception:
             pass
-        return out.getvalue()
+        res = out.getvalue()
+        if type(res) is bytes:
+            return res.decode()
+        return res
 
     def string_value(self):
         return self.__str__()
@@ -89,7 +92,10 @@ class KQMLToken(object):
         return self.data.__getitem__(*args)
 
     def __str__(self):
-        return self.to_string()
+        res = self.to_string()
+        if type(res) is bytes:
+            return res.decode()
+        return res
 
     def __repr__(self):
         s = self.to_string()

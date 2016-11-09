@@ -1,4 +1,4 @@
-from io import StringIO
+from io import BytesIO
 
 class KQMLString(object):
     def __init__(self, data=None):
@@ -20,24 +20,30 @@ class KQMLString(object):
             return obj.data == self.data
 
     def write(self, out):
-        out.write('"')
+        out.write('"'.encode())
         for ch in self.data:
             #if ch == '"' or ch == '\\':
             if ch == '"':
-                out.write('\\')
-            out.write(ch)
-        out.write('"')
+                out.write('\\'.encode())
+            out.write(ch.encode())
+        out.write('"'.encode())
 
     def to_string(self):
-        out = StringIO.StringIO()
+        out = BytesIO()
         self.write(out)
-        return out.getvalue()
+        res = out.getvalue()
+        if type(res) is bytes:
+            return res.decode()
+        return res
 
     def string_value(self):
         return self.data
 
     def __str__(self):
-        return self.to_string()
+        res = self.to_string()
+        if type(res) is bytes:
+            return res.decode()
+        return res
 
     def __repr__(self):
         s = self.__str__()

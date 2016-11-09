@@ -19,13 +19,13 @@ class KQMLReader(object):
 
     def read_char(self):
         ch = self.reader.read(1)
-        self.inbuf += ch
-        return ch
+        self.inbuf += ch.decode()
+        return ch.decode()
 
     def unget_char(self, ch):
         # Rewind by 1 relative to current position
         self.reader.seek(-1, 1)
-        self.reader.write(ch)
+        self.reader.write(ch.encode())
         # Rewind by 1 relative to current position
         self.reader.seek(-1, 1)
         self.inbuf = self.inbuf[:-1]
@@ -35,7 +35,7 @@ class KQMLReader(object):
             ch_ = self.reader.peek(1)
             if not ch_:
                 raise EOFError
-            ch = ch_[0]
+            ch = bytes([ch_[0]]).decode()
         else:
             ch = self.read_char()
             self.unget_char(ch)
@@ -197,3 +197,4 @@ class KQMLReader(object):
             return KQMLPerformative(expr)
         else:
             raise KQMLExpectedListException(self.inbuf)
+

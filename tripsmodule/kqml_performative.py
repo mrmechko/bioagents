@@ -1,5 +1,4 @@
-from io import StringIO
-import tripsmodule.kqml_reader as kqml_reader
+from io import BytesIO
 import tripsmodule.kqml_list as kqml_list
 from tripsmodule.kqml_token import KQMLToken
 from tripsmodule.kqml_exceptions import KQMLBadPerformativeException
@@ -65,16 +64,23 @@ class KQMLPerformative(object):
         self.data.write(out)
 
     def to_string(self):
-        return self.data.to_string()
+        res = self.data.to_string()
+        if type(res) is bytes:
+            return res.decode()
+        return res
 
     @classmethod
     def from_string(cls, s):
-        sreader = StringIO.StringIO(s)
+        sreader = BytesIO(s.encode())
+        import tripsmodule.kqml_reader as kqml_reader
         kreader = kqml_reader.KQMLReader(sreader)
         return cls(kreader.read_list())
 
     def __str__(self):
-        return self.to_string()
+        res = self.to_string()
+        if type(res) is bytes:
+            return res.decode()
+        return res
 
     def __repr__(self):
         return self.data.__repr__()
