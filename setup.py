@@ -2,7 +2,7 @@ from setuptools import setup
 
 def main():
     setup(name='tripsmodule',
-          version='0.0.2',
+          version='1.0.0',
           description='Python TripsModule',
           long_description='surgically removed from bioagents',
           author='Benjamin Gyori',
