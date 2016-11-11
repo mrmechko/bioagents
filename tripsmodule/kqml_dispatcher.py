@@ -35,7 +35,7 @@ class KQMLDispatcher(object):
         self.shutdown_initiated = True
         try:
             self.reader.close()
-            self.logger.error("{} exited".format(name))
+            self.logger.error("{} exited".format(self.name))
         except IOError:
             logger.error('KQML dispatched IOError.')
             pass
