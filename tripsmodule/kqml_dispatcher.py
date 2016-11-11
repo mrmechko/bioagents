@@ -34,13 +34,8 @@ class KQMLDispatcher(object):
     def shutdown(self):
         self.shutdown_initiated = True
         try:
-            # FIXME: print thread info instead of blank quotes
-            self.logger.error('KQML dispatcher shutdown: ' + '' +
-                              ': closing reader')
             self.reader.close()
-            # FIXME: print thread info instead of blank quotes
-            self.logger.error('KQML dispatcher shutdown: ' + '' +
-                              ': done')
+            self.logger.error("{} exited".format(name))
         except IOError:
             logger.error('KQML dispatched IOError.')
             pass

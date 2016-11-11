@@ -285,13 +285,13 @@ class TripsModule(object):
     def send(self, msg):
         try:
             msg.write(self.out)
+            self.out.write('\n'.encode())
+            self.out.flush()
+            self.logger.debug(msg.__repr__())
         except IOError:
             self.logger.error('IOError during message sending')
             pass
-        self.out.write('\n'.encode())
-        self.out.flush()
-        self.logger.debug(msg.__repr__())
-
+        
     def send_with_continuation(self, msg, cont):
         reply_id_base = 'IO-'
         if self.name is not None:
