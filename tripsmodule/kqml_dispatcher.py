@@ -29,15 +29,14 @@ class KQMLDispatcher(object):
                 self.receiver.handle_exception(ex)
 
     def warn(self, msg):
-        logger.warning(msg)
+        self.logger.warning(msg)
 
     def shutdown(self):
         self.shutdown_initiated = True
         try:
             self.reader.close()
-            self.logger.error("{} exited".format(self.name))
         except IOError:
-            logger.error('KQML dispatched IOError.')
+            self.logger.error('KQML dispatched IOError.')
             pass
 
     def dispatch_message(self, msg):
