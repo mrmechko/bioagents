@@ -8,22 +8,29 @@ from tripsmodule.kqml_token import KQMLToken
 from tripsmodule.kqml_list import KQMLList
 from tripsmodule.kqml_performative import KQMLPerformative
 
+
 class TripsModule(object):
-    def __init__(self, argv, is_application=False):
+    def __init__(self, argv, is_application=False, port=None, host=None):
         self.DEFAULT_HOST = 'localhost'
         self.DEFAULT_PORT = 6200
         self.MAX_PORT_TRIES = 100
         self.reply_id_counter = 1
         self.argv = argv
         self.is_application = is_application
-        self.host = self.DEFAULT_HOST
-        self.port = self.DEFAULT_PORT
+        if host is None:
+            self.host = self.DEFAULT_HOST
+        else:
+            self.host = host
+        if port is None:
+            self.port = self.DEFAULT_PORT
+        else:
+            self.port = port
         self.auto_connect = True
         self.socket = None
         self.name = None
         self.group_name = None
         self.scan_for_port = False
-        self.inp =  None
+        self.inp = None
         self.out = None
         self.dispatcher = None
         self.warning_enabled = True
