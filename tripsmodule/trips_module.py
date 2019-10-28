@@ -7,6 +7,7 @@ from tripsmodule.kqml_dispatcher import KQMLDispatcher
 from tripsmodule.kqml_token import KQMLToken
 from tripsmodule.kqml_list import KQMLList
 from tripsmodule.kqml_performative import KQMLPerformative
+from tripsmodule.kqml_string import KQMLString
 
 
 class TripsModule(object):
@@ -51,8 +52,8 @@ class TripsModule(object):
                 self.exit(-1)
         else:
             self.logger.info('Using stdio connection')
-            self.out = sys.stdout
-            self.inp = kqml_reader.KQMLReader(sys.stdin)
+            self.out = sys.stdout.buffer
+            self.inp = kqml_reader.KQMLReader(sys.stdin.buffer)
 
         self.dispatcher = KQMLDispatcher(self, self.inp, self.name)
 
@@ -321,7 +322,7 @@ class TripsModule(object):
 
     def error_reply(self, msg, comment):
         reply_msg = KQMLPerformative('error')
-        reply_msg.set_parameter(':comment', comment)
+        reply_msg.set_parameter(':comment', KQMLSTring(comment))
         self.reply(msg, reply_msg)
 
     def error(self, msg):
